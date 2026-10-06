@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 48" role="img" aria-label="BS Finances">
+  <!-- Logo provisório: substitua este arquivo pelo logo oficial da BS Finances (mesmo nome) -->
+  <rect x="0" y="4" width="40" height="40" rx="10" fill="#0B2545"/>
+  <path d="M10 35 L22 21 L28 27 L33 14" fill="none" stroke="#2FBF71" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="33" cy="14" r="3" fill="#2FBF71"/>
+  <text x="50" y="32" font-family="Plus Jakarta Sans, Segoe UI, Arial, sans-serif" font-size="22" font-weight="800" fill="#0B2545">BS<tspan font-weight="500" fill="#1F8A5B"> Finances</tspan></text>
+</svg>
