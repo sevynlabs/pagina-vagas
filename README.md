@@ -31,10 +31,10 @@ Edite `config.js`:
 
 ## Ajustes de identidade visual (pendentes)
 
-- **Logo:** `assets/logo-bs.svg` (fundo claro) e `assets/logo-bs-branco.svg` (rodapé) são provisórios. Substitua pelos oficiais com os mesmos nomes.
+- **Logo:** `assets/logo-bs.png` (oficial) e `assets/favicon.png` (folha do logo).
 - **Selo GPTW:** coloque o selo oficial em `assets/gptw-selo.png`. Enquanto o arquivo não existir,
   a página mostra um selo provisório desenhado em CSS.
-- **Cores:** ajuste os tokens no topo de `styles.css` (`--brand`, `--accent` etc.).
+- **Cores:** amarelo `#F2CB02` e verde `#7BB92B` extraídos do logo, com verde-escuro `#13291B` de apoio. Tokens no topo de `styles.css`.
 - **Textos:** o "Sobre" foi escrito a partir do posicionamento do diagnóstico de Instagram
   (representante BB Consórcios focada no produtor rural). Revise antes de publicar.
 - **E-mail de contato** exibido em caso de erro: `emailContato` em `config.js`.
