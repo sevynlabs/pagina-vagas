@@ -1,21 +1,27 @@
 /**
  * Backend opcional (gratuito) para a página de vagas da BS Finances.
- * Salva cada candidatura em uma planilha Google e o currículo em uma pasta do Drive.
+ * A cada candidatura:
+ *  - envia um e-mail para EMAIL_NOTIFICACAO com as respostas e o CURRÍCULO ANEXADO
+ *    (responder o e-mail já responde direto ao candidato);
+ *  - registra uma linha na planilha;
+ *  - guarda uma cópia do currículo no Drive (opcional: deixe PASTA_CURRICULOS_ID vazio para não guardar).
  *
  * Como usar:
  * 1. Crie uma planilha no Google Sheets e abra Extensões > Apps Script.
- * 2. Cole este arquivo e preencha PASTA_CURRICULOS_ID (ID da pasta do Drive, na URL da pasta).
+ * 2. Cole este arquivo. (Opcional) Preencha PASTA_CURRICULOS_ID com o ID da pasta do Drive
+ *    (o trecho da URL depois de /folders/).
  * 3. Implantar > Nova implantação > Tipo "App da Web"
  *      Executar como: Eu  |  Quem pode acessar: Qualquer pessoa
  * 4. Copie a URL gerada e cole em config.js:
  *      modoEnvio: "apps-script",
  *      endpoint: "https://script.google.com/macros/s/XXXX/exec"
- * 5. EMAIL_NOTIFICACAO recebe um e-mail a cada candidatura (vagas@bsfinances.com.br).
+ * 5. Na primeira implantação o Google pede autorização (Gmail, Planilhas e Drive): aceite.
+ *    Os e-mails saem da conta Google que implantou o script.
  */
 
-var PASTA_CURRICULOS_ID = "COLE_AQUI_O_ID_DA_PASTA";
+var PASTA_CURRICULOS_ID = ""; // opcional: ID da pasta do Drive para guardar cópia dos currículos
 var NOME_ABA = "Candidaturas";
-var EMAIL_NOTIFICACAO = "vagas@bsfinances.com.br"; // deixe "" para não receber e-mail a cada candidatura
+var EMAIL_NOTIFICACAO = "vagas@bsfinances.com.br"; // recebe cada candidatura com o currículo anexado
 
 var COLUNAS = [
   ["enviado_em", "Data"],
@@ -44,23 +50,31 @@ function doPost(e) {
   try {
     var data = JSON.parse(e.postData.contents);
 
+    var blob = null;
     if (data.curriculo_base64) {
       var bytes = Utilities.base64Decode(data.curriculo_base64);
-      var nomeArquivo = (data.nome || "candidato") + " - " + data.curriculo_nome;
-      var blob = Utilities.newBlob(bytes, data.curriculo_tipo, nomeArquivo);
-      var arquivo = DriveApp.getFolderById(PASTA_CURRICULOS_ID).createFile(blob);
-      data.curriculo_link = arquivo.getUrl();
+      var nomeArquivo = "Currículo - " + (data.nome || "candidato") + " - " + data.curriculo_nome;
+      blob = Utilities.newBlob(bytes, data.curriculo_tipo, nomeArquivo);
+      if (PASTA_CURRICULOS_ID) {
+        data.curriculo_link = DriveApp.getFolderById(PASTA_CURRICULOS_ID).createFile(blob).getUrl();
+      } else {
+        data.curriculo_link = "Anexado no e-mail";
+      }
     }
 
     var sheet = getSheet_();
     sheet.appendRow(COLUNAS.map(function (c) { return data[c[0]] || ""; }));
 
     if (EMAIL_NOTIFICACAO) {
-      MailApp.sendEmail({
+      var email = {
         to: EMAIL_NOTIFICACAO,
         subject: "Nova candidatura: " + (data.vaga || "") + " — " + (data.nome || ""),
         body: COLUNAS.map(function (c) { return c[1] + ": " + (data[c[0]] || "-"); }).join("\n"),
-      });
+        name: "Vagas BS Finances",
+      };
+      if (blob) email.attachments = [blob];
+      if (data.email) email.replyTo = data.email;
+      MailApp.sendEmail(email);
     }
 
     return json_({ ok: true });

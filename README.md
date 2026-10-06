@@ -26,7 +26,7 @@ Edite `config.js`:
 | `modoEnvio`     | `endpoint`                                   | O que acontece |
 |-----------------|----------------------------------------------|----------------|
 | `""` (padrão)   | —                                            | Modo demonstração: nada é enviado (dados aparecem no console). |
-| `"apps-script"` | URL do App da Web do Google Apps Script      | Salva em uma planilha Google e o currículo no Drive. Veja `backend/apps-script.gs`. |
+| `"apps-script"` | URL do App da Web do Google Apps Script      | Envia cada candidatura para **vagas@bsfinances.com.br com o currículo anexado**, registra na planilha e (opcional) guarda cópia no Drive. Veja `backend/apps-script.gs`. |
 | `"multipart"`   | Formspree, n8n, Make, Zapier ou backend próprio | `POST multipart/form-data` com todos os campos + arquivo `curriculo`. |
 
 ## Ajustes de identidade visual (pendentes)
