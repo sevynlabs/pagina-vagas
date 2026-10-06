@@ -16,5 +16,5 @@ window.VAGA_CONFIG = {
   curriculoExtensoes: [".pdf", ".doc", ".docx"],
 
   // Contato exibido em caso de erro no envio
-  emailContato: "rh@bsfinances.com.br",
+  emailContato: "vagas@bsfinances.com.br",
 };

@@ -10,12 +10,12 @@
  * 4. Copie a URL gerada e cole em config.js:
  *      modoEnvio: "apps-script",
  *      endpoint: "https://script.google.com/macros/s/XXXX/exec"
- * 5. (Opcional) Preencha EMAIL_NOTIFICACAO para receber um e-mail a cada candidatura.
+ * 5. EMAIL_NOTIFICACAO recebe um e-mail a cada candidatura (vagas@bsfinances.com.br).
  */
 
 var PASTA_CURRICULOS_ID = "COLE_AQUI_O_ID_DA_PASTA";
 var NOME_ABA = "Candidaturas";
-var EMAIL_NOTIFICACAO = ""; // ex.: "rh@bsfinances.com.br"
+var EMAIL_NOTIFICACAO = "vagas@bsfinances.com.br"; // deixe "" para não receber e-mail a cada candidatura
 
 var COLUNAS = [
   ["enviado_em", "Data"],
