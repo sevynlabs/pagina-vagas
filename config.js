@@ -8,8 +8,8 @@ window.VAGA_CONFIG = {
   //  - "apps-script": POST JSON com o currículo em base64 para um Google Apps Script
   //    (veja backend/apps-script.gs — salva na planilha e o currículo no Drive).
   //  - "": modo demonstração (não envia nada, apenas mostra a tela de sucesso e loga no console).
-  modoEnvio: "",
-  endpoint: "",
+  modoEnvio: "apps-script",
+  endpoint: "https://script.google.com/macros/s/AKfycbzjuWtpf4Jo7TJjA54SUVej8tJRmuByIIt09JvxMr00YGTemRPQEfNBEWe0TghC3bBf/exec",
 
   // Currículo
   curriculoTamanhoMaxMB: 5,
